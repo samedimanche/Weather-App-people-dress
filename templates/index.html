@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Weather App<br/>How do people dress</h1>
+        <div class="d-flex justify-content-center mb-4">
+            <form method="POST" class="form-inline">
+                <input type="text" class="form-control mr-3" id="location" name="location" placeholder="Enter your location" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+        {% if location %}
+            <div class="text-center mb-4">
+                <h2>{{ location }}</h2>
+                <h3>Temperature: {{ temperature }}°C</h3>
+                <h4>People on the street are dressed in</h4>
+            </div>
+            <div id="weatherSlider" class="carousel slide bg-overlay" data-ride="carousel" data-interval="2000">
+                <div class="carousel-inner">
+                    {% for image_file in image_files %}
+                    <div class="carousel-item{% if loop.first %} active{% endif %}">
+                        <img src="{{ url_for('static', filename='img/' + image_file) }}" class="d-block mx-auto" alt="Weather Image">
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#weatherSlider" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#weatherSlider" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
